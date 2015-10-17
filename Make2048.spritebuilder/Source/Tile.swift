@@ -3,7 +3,7 @@
 //  Make2048
 //
 //  Created by Daniele Scochet on 17/10/15.
-//  Copyright © 2015 Apportable. All rights reserved.
+//  Copyright © 2015 Masca Labs di Daniele Scochet. All rights reserved.
 //
 
 import Foundation

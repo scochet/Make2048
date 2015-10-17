@@ -36,6 +36,10 @@ class Grid: CCNodeColor {
     **************************************
 */
     
+    func didLoadFromCCB() {
+        setupBackground()
+    }
+    
     func setupBackground() {
         /*
         First we load a Tile.ccb to read the height and width of a single tile

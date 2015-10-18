@@ -57,6 +57,9 @@ class Grid: CCNodeColor {
         
         // popolo la grid del numero di tiles predeterminate in startTiles (qui, startTiles = 2)
         spawnStartTiles()
+        
+        // avvio la gestione delle gestures
+        setupGestures()
     }
     
     func setupBackground() {
@@ -124,6 +127,49 @@ class Grid: CCNodeColor {
         for _ in 0..<startTiles {
             spawnRandomTile()
         }
+    }
+    
+    /*
+        Adding gesture recognizers
+*/
+    
+    // Gesture recognizers need to be added to a UIView.
+    // The main UIView in a Cocos2D application is the OpenGL view that is used to render the entire content of a Cocos2d app.
+    // We access this main UIView through the "view" property of CCDirector.
+    // The UISwipeGestureRecognizer allows to associate one method with each swipe direction.
+    
+    func setupGestures() {
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swipeLeft")
+        swipeLeft.direction = .Left
+        CCDirector.sharedDirector().view.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: "swipeRight")
+        swipeRight.direction = .Right
+        CCDirector.sharedDirector().view.addGestureRecognizer(swipeRight)
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: "swipeUp")
+        swipeUp.direction = .Up
+        CCDirector.sharedDirector().view.addGestureRecognizer(swipeUp)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: "swipeDown")
+        swipeDown.direction = .Down
+        CCDirector.sharedDirector().view.addGestureRecognizer(swipeDown)
+    }
+    
+    func swipeLeft() {
+        print("Left swipe!")
+    }
+    
+    func swipeRight() {
+        print("Right swipe!")
+    }
+    
+    func swipeUp() {
+        print("Up swipe!")
+    }
+    
+    func swipeDown() {
+        print("Down swipe!")
     }
     
     /*

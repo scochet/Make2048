@@ -15,12 +15,19 @@ class Grid: CCNodeColor {
         properties
     **************************************
 */
+    // consts
     let gridSize = 4
+    let startTiles = 2
     
+    
+    // vars
     var columnWidth: CGFloat = 0
     var columnHeight: CGFloat = 0
     var tileMarginVertical: CGFloat = 0
     var tileMarginHorizontal: CGFloat = 0
+    
+    var gridArray = [[Tile?]]()
+    var noTile: Tile? = nil
     
     /*
     **************************************
@@ -68,6 +75,24 @@ class Grid: CCNodeColor {
             }
             y += columnHeight + tileMarginVertical
         }
+    }
+    
+    func positionForColumn(column: Int, row: Int) -> CGPoint {
+        let x = tileMarginHorizontal + CGFloat(column) * (tileMarginHorizontal + columnWidth)
+        let y = tileMarginVertical + CGFloat(row) * (tileMarginVertical + columnHeight)
+        return CGPoint(x: x, y: y)
+    }
+    
+    func addTileAtColumn(column: Int, row: Int) {
+        let tile = CCBReader.load("Tile") as! Tile
+        gridArray[column][row] = tile
+        tile.scale = 0
+        addChild(tile)
+        tile.position = positionForColumn(column, row: row)
+        let delay = CCActionDelay(duration: 0.3)
+        let scaleUp = CCActionScaleTo(duration: 0.2, scale: 1)
+        let sequence = CCActionSequence(array: [delay, scaleUp])
+        tile.runAction(sequence)
     }
     
     /*

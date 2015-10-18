@@ -45,6 +45,18 @@ class Grid: CCNodeColor {
     
     func didLoadFromCCB() {
         setupBackground()
+        
+        // riempio grid di vettori colonna vuoti
+        for i in 0..<gridSize {
+            var column = [Tile?]()
+            for j in 0..<gridSize {
+                column.append(noTile)
+            }
+            gridArray.append(column)
+        }
+        
+        // popolo la grid del numero di tiles predeterminate in startTiles (qui, startTiles = 2)
+        spawnStartTiles()
     }
     
     func setupBackground() {
@@ -93,6 +105,25 @@ class Grid: CCNodeColor {
         let scaleUp = CCActionScaleTo(duration: 0.2, scale: 1)
         let sequence = CCActionSequence(array: [delay, scaleUp])
         tile.runAction(sequence)
+    }
+    
+    func spawnRandomTile() {
+        var spawned = false
+        while !spawned {
+            let randomRow = Int(CCRANDOM_0_1() * Float(gridSize))
+            let randomColumn = Int(CCRANDOM_0_1() * Float(gridSize))
+            let positionFree = gridArray[randomColumn][randomRow] == noTile
+            if positionFree {
+                addTileAtColumn(randomColumn, row: randomRow)
+                spawned = true
+            }
+        }
+    }
+    
+    func spawnStartTiles() {
+        for _ in 0..<startTiles {
+            spawnRandomTile()
+        }
     }
     
     /*
